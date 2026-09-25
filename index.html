@@ -1,108 +1,481 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f5f3ed">
-  <title>Эмир — кандидат в президенты школы</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6f3ec" />
+  <meta name="description" content="Информационный сайт Эмира Мараш-Оглы — кандидата в президенты школы." />
+  <title>Эмир Мараш-Оглы — школьные выборы 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <style>
+    :root{
+      --bg:#f7f4ed;
+      --surface:#fffdfa;
+      --surface-2:#f2efe7;
+      --text:#111814;
+      --muted:#6d746f;
+      --green:#2f6b54;
+      --green-2:#4f866f;
+      --line:#e5e0d6;
+      --shadow:0 14px 40px rgba(26,44,36,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(97,140,119,.10), transparent 28rem),
+        var(--bg);
+      font-family:"Manrope",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+    button,input{font:inherit}
+    button,a{-webkit-tap-highlight-color:transparent}
+    .phone{
+      width:min(100%,430px);
+      margin:0 auto;
+      min-height:100vh;
+      position:relative;
+      background:rgba(247,244,237,.96);
+      overflow:hidden;
+      box-shadow:0 0 0 1px rgba(0,0,0,.025);
+    }
+    .header{
+      height:64px;
+      padding:0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:30;
+      background:rgba(247,244,237,.88);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid rgba(229,224,214,.7);
+    }
+    .brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:16px}
+    .brand-crown{width:23px;height:19px;display:block;color:var(--green)}
+    .menu-btn{width:38px;height:38px;border:0;background:transparent;border-radius:12px;display:grid;place-items:center;cursor:pointer}
+    .menu-btn span,.menu-btn:before,.menu-btn:after{content:"";display:block;width:20px;height:2px;background:#19231f;border-radius:5px;transition:.2s}
+    .menu-btn span{margin:4px 0}
+    .menu-panel{
+      position:fixed;inset:64px 0 auto 0;margin:auto;width:min(100%,430px);
+      background:rgba(247,244,237,.98);z-index:29;padding:14px 20px 20px;
+      border-bottom:1px solid var(--line);transform:translateY(-130%);transition:.28s ease;
+      box-shadow:0 14px 28px rgba(0,0,0,.08)
+    }
+    .menu-panel.open{transform:translateY(0)}
+    .menu-panel a{display:block;padding:13px 0;color:var(--text);text-decoration:none;font-weight:700;border-bottom:1px solid var(--line)}
+    .hero{
+      min-height:540px;
+      padding:78px 22px 34px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      align-items:flex-end;
+    }
+    .hero-photo{
+      position:absolute;
+      inset:0 0 auto auto;
+      width:73%;
+      height:100%;
+      object-fit:cover;
+      object-position:58% center;
+      z-index:0;
+      filter:saturate(.88) contrast(.96) brightness(1.03);
+    }
+    .hero:before{
+      content:"";
+      position:absolute;inset:0;z-index:1;
+      background:
+        linear-gradient(90deg,#f7f4ed 0%,rgba(247,244,237,.98) 27%,rgba(247,244,237,.70) 52%,rgba(247,244,237,.08) 79%),
+        linear-gradient(0deg,#f7f4ed 0%,rgba(247,244,237,.10) 43%,rgba(247,244,237,.06) 100%);
+    }
+    .hero:after{
+      content:"";
+      position:absolute;left:-6%;right:-6%;bottom:-40px;height:105px;background:var(--bg);z-index:1;
+      border-radius:50% 50% 0 0 / 45% 45% 0 0;
+    }
+    .hero-content{position:relative;z-index:2;width:80%;padding-bottom:32px}
+    .pill{
+      display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:999px;
+      background:rgba(236,239,231,.9);border:1px solid rgba(47,107,84,.08);
+      font-size:10px;font-weight:700;color:#66716a;
+    }
+    .hero h1{font-size:43px;line-height:.98;letter-spacing:-.055em;margin:17px 0 14px;max-width:320px}
+    .hero h1 span{color:var(--green)}
+    .hero p{font-size:13px;line-height:1.55;color:#4f5954;max-width:260px;margin:0 0 18px}
+    .btn{
+      border:0;border-radius:14px;min-height:48px;padding:0 18px;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      background:var(--green);color:#fff;text-decoration:none;font-weight:800;font-size:13px;cursor:pointer;
+      box-shadow:0 8px 18px rgba(47,107,84,.17)
+    }
+    .learn{display:flex;align-items:center;gap:8px;color:#6b736e;font-size:10px;font-weight:700;margin-top:12px;text-decoration:none;width:max-content}
+    .learn b{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:1px solid #bac9c0;color:var(--green);font-size:15px}
+    section{padding:25px 18px}
+    .section-title{font-size:25px;line-height:1.08;letter-spacing:-.035em;margin:0 0 4px}
+    .section-sub{margin:0;color:var(--muted);font-size:11px;line-height:1.5}
+    .proposal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+    .proposal{
+      background:rgba(255,253,250,.85);border:1px solid rgba(229,224,214,.75);border-radius:18px;
+      padding:15px;min-height:171px;box-shadow:0 9px 20px rgba(49,55,50,.035);
+    }
+    .proposal .icon{
+      width:42px;height:42px;border-radius:13px;background:#eef3ee;color:var(--green);display:grid;place-items:center;
+      font-size:21px;margin-bottom:15px
+    }
+    .proposal h3{font-size:13px;line-height:1.25;margin:0 0 7px}
+    .proposal p{font-size:10px;line-height:1.55;color:#707770;margin:0}
+    .about-card{
+      margin-top:17px;background:rgba(255,253,250,.95);border:1px solid var(--line);border-radius:19px;padding:13px;
+      box-shadow:var(--shadow);display:grid;grid-template-columns:105px 1fr;gap:14px
+    }
+    .about-photo{width:105px;height:147px;border-radius:14px;object-fit:cover;object-position:60% center}
+    .about-card h3{font-size:14px;margin:4px 0 6px}
+    .about-card p{font-size:10px;color:#606a64;line-height:1.55;margin:0}
+    .facts{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:10px;border-top:1px solid var(--line)}
+    .fact{display:flex;align-items:center;gap:8px}
+    .fact i{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#eef3ee;font-style:normal}
+    .fact b{display:block;font-size:10px}.fact span{display:block;font-size:8px;color:#7d857f}
+    .hobbies{margin-top:26px}
+    .hobby-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}
+    .hobby{
+      background:rgba(255,253,250,.9);border:1px solid var(--line);border-radius:15px;padding:14px 8px;text-align:center
+    }
+    .hobby strong{display:block;font-size:20px;margin-bottom:7px}.hobby b{font-size:10px}
+    .future{
+      margin-top:12px;background:#fffdfa;border:1px solid var(--line);border-radius:17px;padding:14px;display:flex;gap:13px;align-items:center;
+      box-shadow:0 8px 20px rgba(0,0,0,.035)
+    }
+    .future-icon{width:52px;height:52px;min-width:52px;border-radius:14px;background:linear-gradient(145deg,var(--green),#6d9a85);display:grid;place-items:center;color:white;font-size:24px}
+    .future h3{font-size:13px;margin:0 0 3px}.future p{font-size:9px;line-height:1.5;color:#6d756f;margin:0}
+    .bonus-intro{text-align:center;padding-top:50px;padding-bottom:22px}
+    .gift-icon{width:54px;height:54px;border-radius:50%;background:#eef2ea;color:var(--green);display:grid;place-items:center;margin:0 auto 16px;font-size:27px}
+    .bonus-intro .section-title{font-size:28px}
+    .bonus-intro p{max-width:290px;margin:8px auto 20px;color:#6c746e;font-size:12px;line-height:1.6}
+    .down{font-size:24px;color:var(--green);margin-top:18px}
+    .bonus-card,.wheel-card{
+      background:#fffdfa;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-top:12px
+    }
+    .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+    .card-title{display:flex;gap:10px;align-items:center}
+    .card-title i{font-style:normal;font-size:20px}.card-title h3{margin:0;font-size:15px}
+    .card-close{border:0;background:transparent;font-size:22px;color:#767d78;cursor:pointer}
+    .bonus-card p,.wheel-card p{font-size:10px;line-height:1.55;color:#6f7771}
+    .tg{
+      display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:14px;padding:11px;margin:14px 0;
+      text-decoration:none;color:inherit
+    }
+    .tg-logo{width:39px;height:39px;border-radius:11px;background:#229ed9;color:#fff;display:grid;place-items:center;font-size:20px}
+    .tg small{display:block;color:#787f7a;font-size:8px}.tg b{font-size:11px}
+    .input{width:100%;height:48px;border:1px solid #ddd9cf;border-radius:13px;background:#fbfaf6;padding:0 14px;outline:none;font-size:12px}
+    .input:focus{border-color:#91aa9e;box-shadow:0 0 0 3px rgba(47,107,84,.08)}
+    .full{width:100%;margin-top:10px}
+    .err{min-height:16px;font-size:9px;color:#a34f45;padding-top:6px}
+    .wheel-wrap{position:relative;width:282px;height:282px;max-width:78vw;max-height:78vw;margin:18px auto}
+    .pointer{
+      position:absolute;left:50%;top:-14px;transform:translateX(-50%);z-index:3;width:0;height:0;
+      border-left:17px solid transparent;border-right:17px solid transparent;border-top:31px solid #ee5b7e;
+      filter:drop-shadow(0 5px 7px rgba(0,0,0,.18))
+    }
+    .pointer:after{content:"";position:absolute;width:9px;height:9px;background:#fff;border-radius:50%;left:-4.5px;top:-26px}
+    .wheel{
+      width:100%;height:100%;border-radius:50%;position:relative;
+      background:conic-gradient(
+        #c887e9 0 72deg,
+        #4daef0 72deg 144deg,
+        #39ca84 144deg 216deg,
+        #f6bd47 216deg 288deg,
+        #ff6178 288deg 360deg
+      );
+      border:8px solid #f1ede4;box-shadow:0 7px 23px rgba(0,0,0,.12);
+      transition:transform 4.3s cubic-bezier(.12,.72,.06,1);
+    }
+    .wheel:after{
+      content:"";position:absolute;left:50%;top:50%;width:33px;height:33px;border-radius:50%;background:#fffdf6;
+      transform:translate(-50%,-50%);box-shadow:0 2px 7px rgba(0,0,0,.12)
+    }
+    .wheel-label{position:absolute;left:50%;top:50%;font-size:11px;font-weight:800;transform-origin:0 0;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.15)}
+    .wheel-label:nth-child(1){transform:rotate(36deg) translate(73px) rotate(-36deg)}
+    .wheel-label:nth-child(2){transform:rotate(108deg) translate(73px) rotate(-108deg)}
+    .wheel-label:nth-child(3){transform:rotate(180deg) translate(73px) rotate(-180deg)}
+    .wheel-label:nth-child(4){transform:rotate(252deg) translate(73px) rotate(-252deg)}
+    .wheel-label:nth-child(5){transform:rotate(324deg) translate(73px) rotate(-324deg)}
+    .bottom-nav{
+      position:sticky;bottom:0;z-index:25;height:68px;background:rgba(250,248,242,.95);backdrop-filter:blur(16px);
+      border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:max(4px,env(safe-area-inset-bottom))
+    }
+    .bottom-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-decoration:none;color:#626b65;font-size:8px}
+    .bottom-nav b{font-size:19px;line-height:1}.bottom-nav a.active{color:var(--green)}
+    .overlay{
+      position:fixed;inset:0;background:rgba(14,19,17,.72);z-index:90;display:none;align-items:center;justify-content:center;padding:22px
+    }
+    .overlay.open{display:flex}
+    .result{
+      width:min(100%,370px);background:#fffdfa;border-radius:20px;padding:24px 20px;text-align:center;position:relative;
+      box-shadow:0 25px 80px rgba(0,0,0,.26);animation:pop .24s ease-out
+    }
+    @keyframes pop{from{transform:scale(.94);opacity:.3}to{transform:scale(1);opacity:1}}
+    .result .x{position:absolute;right:13px;top:9px;border:0;background:transparent;font-size:24px;color:#6c746f}
+    .coin{width:92px;height:92px;border-radius:50%;background:linear-gradient(145deg,#ffd85d,#e3a51e);border:10px solid #ffeb91;display:grid;place-items:center;margin:12px auto 17px;color:#fff;font-size:42px;font-weight:800;box-shadow:0 9px 22px rgba(216,164,29,.27)}
+    .result h2{font-size:25px;margin:0 0 8px}.result p{font-size:11px;color:#6e756f;line-height:1.55;margin:0 0 14px}
+    .hidden{display:none!important}
+    @media(min-width:700px){
+      body:after{content:"Мобильная версия";position:fixed;right:18px;bottom:18px;font-size:11px;color:#8b938e}
+      .phone{min-height:100vh}
+    }
+  </style>
 </head>
 <body>
-<main>
-  <header class="nav"><b>Эмир</b><span>Выборы 2026</span></header>
-
-  <section class="hero">
-    <span class="badge">Кандидат в президенты школы</span>
-    <h1>Школа, в которой <em>хочется участвовать.</em></h1>
-    <p>Больше идей, возможностей и школьных событий. Предложения, которые можно обсуждать вместе.</p>
-    <a href="#ideas" class="primary">Мои предложения</a>
-    <a href="#about" class="secondary">Обо мне</a>
-  </section>
-
-  <section id="ideas">
-    <span class="eyebrow">МОИ ПРЕДЛОЖЕНИЯ</span>
-    <h2>Что я хочу изменить</h2>
-    <p class="muted">Направления, которым я хочу уделить внимание вместе с учениками и школой.</p>
-    <div class="cards">
-      <article><small>01</small><h3>Больше мероприятий</h3><p>Турниры, конкурсы, квесты, праздники и тематические дни.</p></article>
-      <article><small>02</small><h3>Комфортнее в школе</h3><p>Собирать идеи учеников для классов и зон отдыха.</p></article>
-      <article><small>03</small><h3>Слышать учеников</h3><p>Регулярно собирать предложения и обсуждать важные вопросы.</p></article>
-      <article><small>04</small><h3>Новые проекты</h3><p>Кружки, проекты и интересные занятия по инициативе учеников.</p></article>
-      <article><small>05</small><h3>Школьная столовая</h3><p>Собирать пожелания по ассортименту и передавать их администрации.</p></article>
-      <article><small>06</small><h3>Дружная атмосфера</h3><p>Больше совместных активностей, уважения и поддержки.</p></article>
-    </div>
-  </section>
-
-  <section id="about">
-    <span class="eyebrow">ОБО МНЕ</span>
-    <h2>Привет, я Эмир</h2>
-    <div class="about-card">
-      <div class="avatar">Э</div>
-      <p>Я ученик 8 класса и кандидат в президенты школы. Мне нравится программирование, создание сайтов и работа над собственными проектами. Я хочу активно участвовать в школьной жизни.</p>
-    </div>
-
-    <h3 class="label">Мои хобби</h3>
-    <div class="chips">
-      <span>⌨️ Программирование</span><span>🌐 Сайты</span>
-      <span>🎮 Игры</span><span>🏃 Спорт</span>
-      <span>🎧 Музыка</span><span>📚 Обучение</span>
-    </div>
-
-    <div class="future">
-      <small>КЕМ Я ХОЧУ СТАТЬ</small>
-      <h3>Frontend-разработчиком</h3>
-      <p>Хочу создавать современные сайты и приложения, а в будущем развивать собственные IT-проекты.</p>
-    </div>
-  </section>
-
-  <section class="bonus">
-    <div class="gift">🎁</div>
-    <span class="eyebrow">БОНУС</span>
-    <h2>Получи свой бонус</h2>
-    <p class="muted">Подойди ко мне лично — я дам код, который откроет колесо.</p>
-    <button class="primary" id="bonusBtn">Получить бонус</button>
-
-    <div class="code-card" id="codeCard">
-      <h3>Подойди к Эмиру</h3>
-      <p>Получи код и введи его ниже.</p>
-      <a class="telegram" href="https://t.me/marashtg" target="_blank" rel="noopener">Telegram Эмира ↗</a>
-      <input id="codeInput" inputmode="numeric" placeholder="Введите код">
-      <button class="primary" id="unlockBtn">Открыть колесо</button>
-      <div class="error" id="error"></div>
-    </div>
-  </section>
-</main>
-
-<div class="overlay" id="wheelOverlay">
-  <div class="sheet">
-    <button class="close">×</button>
-    <h2>Колесо фортуны</h2>
-    <p class="muted">Крути колесо и получи приз.</p>
-    <div class="pointer">▼</div>
-    <div class="wheel" id="wheel">
-      <div class="wheel-labels">
-        <span>Тетрадка</span><span>Ручка</span><span>1 сом</span>
-        <span>10 сом</span><span>50 сом</span><span>100 сом</span><span>1000 сом</span>
+  <div class="phone">
+    <header class="header">
+      <div class="brand">
+        <svg class="brand-crown" viewBox="0 0 24 20" aria-hidden="true">
+          <path fill="currentColor" d="M2 5.2 6.4 8 9.2 2.5 12 8l2.8-5.5L17.6 8 22 5.2l-1.7 11.6H3.7L2 5.2Z"/>
+        </svg>
+        <span>Эмир</span>
       </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Открыть меню"><span></span></button>
+    </header>
+
+    <nav class="menu-panel" id="menuPanel">
+      <a href="#home">Главная</a>
+      <a href="#ideas">Предложения</a>
+      <a href="#about">Обо мне</a>
+      <a href="#bonus">Бонус</a>
+    </nav>
+
+    <main>
+      <section class="hero" id="home">
+        <img src="assets/emir.jpg" class="hero-photo" alt="Эмир Мараш-Оглы">
+        <div class="hero-content">
+          <span class="pill">Выборы 2026</span>
+          <h1>Вместе сделаем школу <span>лучше</span></h1>
+          <p>Идеи, развитие и больше возможностей для школьной жизни.</p>
+          <a class="btn" href="#ideas">Мои предложения →</a>
+          <a class="learn" href="#about"><b>↓</b> Узнать больше</a>
+        </div>
+      </section>
+
+      <section id="ideas">
+        <h2 class="section-title">Что я собираюсь изменить?</h2>
+        <p class="section-sub">Мои основные предложения для школьной жизни.</p>
+
+        <div class="proposal-grid">
+          <article class="proposal">
+            <div class="icon">🏃</div>
+            <h3>Спортивные мероприятия</h3>
+            <p>Больше спортивных турниров, соревнований и активностей.</p>
+          </article>
+          <article class="proposal">
+            <div class="icon">👥</div>
+            <h3>Большое количество мероприятий</h3>
+            <p>Конкурсы, праздники, квесты, тематические дни и новые форматы.</p>
+          </article>
+          <article class="proposal">
+            <div class="icon">👕</div>
+            <h3>Смягчение дресс-кода</h3>
+            <p>Обсуждение более комфортных и современных правил внешнего вида.</p>
+          </article>
+          <article class="proposal">
+            <div class="icon">🏆</div>
+            <h3>Возвращение турнирников</h3>
+            <p>Возрождение школьных турниров, командных игр и соревнований.</p>
+          </article>
+          <article class="proposal">
+            <div class="icon">💻</div>
+            <h3>Сайт-помощник школы</h3>
+            <p>Расписание, новости, полезные материалы и важная информация в одном месте.</p>
+          </article>
+          <article class="proposal">
+            <div class="icon">📶</div>
+            <h3>Общий Wi‑Fi</h3>
+            <p>Инициатива по созданию стабильного общего Wi‑Fi для учебных задач.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="about">
+        <h2 class="section-title">Обо мне</h2>
+        <p class="section-sub">Коротко обо мне.</p>
+
+        <div class="about-card">
+          <img src="assets/emir.jpg" class="about-photo" alt="Эмир">
+          <div>
+            <h3>Эмир Мараш-Оглы</h3>
+            <p>Я ученик 9 класса. Мне нравятся технологии, спорт и музыка. Я хочу участвовать в школьной жизни и работать над идеями, которые можно обсуждать вместе с учениками и администрацией.</p>
+          </div>
+          <div class="facts">
+            <div class="fact"><i>📚</i><div><b>9 класс</b><span>Класс</span></div></div>
+            <div class="fact"><i>👑</i><div><b>Кандидат</b><span>в президенты школы</span></div></div>
+          </div>
+        </div>
+
+        <div class="hobbies">
+          <h2 class="section-title" style="font-size:22px">Мои хобби</h2>
+          <p class="section-sub">Чем я увлекаюсь в свободное время.</p>
+          <div class="hobby-grid">
+            <div class="hobby"><strong>🎸</strong><b>Гитара</b></div>
+            <div class="hobby"><strong>💻</strong><b>Программирование</b></div>
+            <div class="hobby"><strong>🏋️</strong><b>Спорт</b></div>
+          </div>
+
+          <div class="future">
+            <div class="future-icon">⚙️</div>
+            <div>
+              <h3>Кем я хочу стать?</h3>
+              <p><b style="color:#17231d">Инженером.</b> Мне нравится создавать, разрабатывать, разбираться в технологиях и находить решения.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bonus-intro" id="bonus">
+        <div class="gift-icon">🎁</div>
+        <h2 class="section-title">Получи бонус</h2>
+        <p>Подойди ко мне — я введу код, после чего откроется колесо с бонусом.</p>
+        <button class="btn full" id="openBonus">🎁 Получить бонус</button>
+        <div class="down">↓</div>
+
+        <div class="bonus-card hidden" id="bonusCard">
+          <div class="card-head">
+            <div class="card-title"><i>🎁</i><h3>Подойди к Эмиру</h3></div>
+            <button class="card-close" id="closeBonus" aria-label="Закрыть">×</button>
+          </div>
+          <p>Получи код у Эмира и введи его для открытия колеса.</p>
+
+          <a class="tg" href="https://t.me/marashtg" target="_blank" rel="noopener">
+            <div class="tg-logo">➤</div>
+            <div><small>Мой Telegram</small><b>@marashtg</b></div>
+          </a>
+
+          <input class="input" id="codeInput" inputmode="numeric" placeholder="Введите код от Эмира">
+          <button class="btn full" id="unlockWheel">Открыть колесо</button>
+          <div class="err" id="codeError"></div>
+        </div>
+
+        <div class="wheel-card hidden" id="wheelCard">
+          <div class="card-head">
+            <div class="card-title"><i>🎁</i><h3>Колесо фортуны</h3></div>
+          </div>
+          <p>Крути колесо и получи свой приз.</p>
+
+          <div class="wheel-wrap">
+            <div class="pointer"></div>
+            <div class="wheel" id="wheel">
+              <span class="wheel-label">Тетрадка</span>
+              <span class="wheel-label">Ручка</span>
+              <span class="wheel-label">1 сом</span>
+              <span class="wheel-label">5 сом</span>
+              <span class="wheel-label">100 сом</span>
+            </div>
+          </div>
+
+          <button class="btn full" id="spinBtn">↻ Крутить</button>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="#home" class="active"><b>⌂</b><span>Главная</span></a>
+      <a href="#about"><b>♙</b><span>Обо мне</span></a>
+      <a href="#bonus"><b>🎁</b><span>Бонус</span></a>
+      <a href="https://t.me/marashtg" target="_blank"><b>✉</b><span>Контакты</span></a>
+    </nav>
+  </div>
+
+  <div class="overlay" id="resultOverlay">
+    <div class="result">
+      <button class="x" id="closeResult">×</button>
+      <div class="coin" id="coinText">1</div>
+      <h2>Вы выиграли!<br><span id="resultPrize">1 сом</span></h2>
+      <p>Поздравляю! Покажи этот экран Эмиру, чтобы получить приз.</p>
+      <button class="btn full" id="spinAgain">Крутить ещё раз</button>
     </div>
-    <button class="primary" id="spinBtn">Крутить</button>
-    <p class="fine">Приз определяется колесом при вращении.</p>
   </div>
-</div>
 
-<div class="overlay" id="resultOverlay">
-  <div class="sheet result">
-    <button class="close">×</button>
-    <div class="result-icon">🎉</div>
-    <h2 id="resultTitle">Твой приз</h2>
-    <p class="muted">Покажи этот экран Эмиру, чтобы подтвердить результат.</p>
-    <button class="primary close-result">Готово</button>
-  </div>
-</div>
+  <script>
+    const BONUS_CODE = "2026";
+    const prizes = ["Тетрадка","Ручка","1 сом","5 сом","100 сом"];
 
-<script src="script.js"></script>
+    const menuBtn = document.getElementById("menuBtn");
+    const menuPanel = document.getElementById("menuPanel");
+    menuBtn.addEventListener("click", ()=>menuPanel.classList.toggle("open"));
+    menuPanel.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>menuPanel.classList.remove("open")));
+
+    const bonusCard = document.getElementById("bonusCard");
+    const wheelCard = document.getElementById("wheelCard");
+    document.getElementById("openBonus").addEventListener("click", ()=>{
+      bonusCard.classList.remove("hidden");
+      bonusCard.scrollIntoView({behavior:"smooth",block:"center"});
+    });
+    document.getElementById("closeBonus").addEventListener("click", ()=>bonusCard.classList.add("hidden"));
+
+    document.getElementById("unlockWheel").addEventListener("click", ()=>{
+      const val = document.getElementById("codeInput").value.trim();
+      const err = document.getElementById("codeError");
+      if(val !== BONUS_CODE){
+        err.textContent = "Неверный код. Подойди к Эмиру.";
+        return;
+      }
+      err.textContent = "";
+      wheelCard.classList.remove("hidden");
+      wheelCard.scrollIntoView({behavior:"smooth",block:"center"});
+    });
+
+    const wheel = document.getElementById("wheel");
+    const resultOverlay = document.getElementById("resultOverlay");
+    const resultPrize = document.getElementById("resultPrize");
+    const coinText = document.getElementById("coinText");
+    let spinning = false;
+    let rotation = 0;
+
+    function showResult(prize){
+      resultPrize.textContent = prize;
+      coinText.textContent = prize.includes("сом") ? prize.replace(" сом","") : (prize === "Ручка" ? "✎" : "▯");
+      resultOverlay.classList.add("open");
+    }
+
+    document.getElementById("spinBtn").addEventListener("click", ()=>{
+      if(spinning) return;
+      spinning = true;
+
+      const index = Math.floor(Math.random() * prizes.length);
+      const slice = 360 / prizes.length;
+
+      // Pointer is at the top. Rotate selected segment to 12 o'clock.
+      const centerAngle = index * slice + slice / 2;
+      const target = 360 - centerAngle;
+      rotation += 360 * 6 + target;
+
+      wheel.style.transform = `rotate(${rotation}deg)`;
+
+      setTimeout(()=>{
+        spinning = false;
+        showResult(prizes[index]);
+      }, 4400);
+    });
+
+    function closeResult(){ resultOverlay.classList.remove("open"); }
+    document.getElementById("closeResult").addEventListener("click", closeResult);
+    document.getElementById("spinAgain").addEventListener("click", closeResult);
+    resultOverlay.addEventListener("click", e=>{ if(e.target === resultOverlay) closeResult(); });
+
+    // Bottom nav active state
+    const links = [...document.querySelectorAll(".bottom-nav a[href^='#']")];
+    const sections = ["home","about","bonus"].map(id=>document.getElementById(id));
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          links.forEach(a=>a.classList.toggle("active", a.getAttribute("href")==="#"+entry.target.id));
+        }
+      })
+    },{threshold:.45});
+    sections.forEach(s=>obs.observe(s));
+  </script>
 </body>
 </html>
