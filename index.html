@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f5f3ed">
+  <title>Эмир — кандидат в президенты школы</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header class="nav"><b>Эмир</b><span>Выборы 2026</span></header>
+
+  <section class="hero">
+    <span class="badge">Кандидат в президенты школы</span>
+    <h1>Школа, в которой <em>хочется участвовать.</em></h1>
+    <p>Больше идей, возможностей и школьных событий. Предложения, которые можно обсуждать вместе.</p>
+    <a href="#ideas" class="primary">Мои предложения</a>
+    <a href="#about" class="secondary">Обо мне</a>
+  </section>
+
+  <section id="ideas">
+    <span class="eyebrow">МОИ ПРЕДЛОЖЕНИЯ</span>
+    <h2>Что я хочу изменить</h2>
+    <p class="muted">Направления, которым я хочу уделить внимание вместе с учениками и школой.</p>
+    <div class="cards">
+      <article><small>01</small><h3>Больше мероприятий</h3><p>Турниры, конкурсы, квесты, праздники и тематические дни.</p></article>
+      <article><small>02</small><h3>Комфортнее в школе</h3><p>Собирать идеи учеников для классов и зон отдыха.</p></article>
+      <article><small>03</small><h3>Слышать учеников</h3><p>Регулярно собирать предложения и обсуждать важные вопросы.</p></article>
+      <article><small>04</small><h3>Новые проекты</h3><p>Кружки, проекты и интересные занятия по инициативе учеников.</p></article>
+      <article><small>05</small><h3>Школьная столовая</h3><p>Собирать пожелания по ассортименту и передавать их администрации.</p></article>
+      <article><small>06</small><h3>Дружная атмосфера</h3><p>Больше совместных активностей, уважения и поддержки.</p></article>
+    </div>
+  </section>
+
+  <section id="about">
+    <span class="eyebrow">ОБО МНЕ</span>
+    <h2>Привет, я Эмир</h2>
+    <div class="about-card">
+      <div class="avatar">Э</div>
+      <p>Я ученик 8 класса и кандидат в президенты школы. Мне нравится программирование, создание сайтов и работа над собственными проектами. Я хочу активно участвовать в школьной жизни.</p>
+    </div>
+
+    <h3 class="label">Мои хобби</h3>
+    <div class="chips">
+      <span>⌨️ Программирование</span><span>🌐 Сайты</span>
+      <span>🎮 Игры</span><span>🏃 Спорт</span>
+      <span>🎧 Музыка</span><span>📚 Обучение</span>
+    </div>
+
+    <div class="future">
+      <small>КЕМ Я ХОЧУ СТАТЬ</small>
+      <h3>Frontend-разработчиком</h3>
+      <p>Хочу создавать современные сайты и приложения, а в будущем развивать собственные IT-проекты.</p>
+    </div>
+  </section>
+
+  <section class="bonus">
+    <div class="gift">🎁</div>
+    <span class="eyebrow">БОНУС</span>
+    <h2>Получи свой бонус</h2>
+    <p class="muted">Подойди ко мне лично — я дам код, который откроет колесо.</p>
+    <button class="primary" id="bonusBtn">Получить бонус</button>
+
+    <div class="code-card" id="codeCard">
+      <h3>Подойди к Эмиру</h3>
+      <p>Получи код и введи его ниже.</p>
+      <a class="telegram" href="https://t.me/marashtg" target="_blank" rel="noopener">Telegram Эмира ↗</a>
+      <input id="codeInput" inputmode="numeric" placeholder="Введите код">
+      <button class="primary" id="unlockBtn">Открыть колесо</button>
+      <div class="error" id="error"></div>
+    </div>
+  </section>
+</main>
+
+<div class="overlay" id="wheelOverlay">
+  <div class="sheet">
+    <button class="close">×</button>
+    <h2>Колесо фортуны</h2>
+    <p class="muted">Крути колесо и получи приз.</p>
+    <div class="pointer">▼</div>
+    <div class="wheel" id="wheel">
+      <div class="wheel-labels">
+        <span>Тетрадка</span><span>Ручка</span><span>1 сом</span>
+        <span>10 сом</span><span>50 сом</span><span>100 сом</span><span>1000 сом</span>
+      </div>
+    </div>
+    <button class="primary" id="spinBtn">Крутить</button>
+    <p class="fine">Приз определяется колесом при вращении.</p>
+  </div>
+</div>
+
+<div class="overlay" id="resultOverlay">
+  <div class="sheet result">
+    <button class="close">×</button>
+    <div class="result-icon">🎉</div>
+    <h2 id="resultTitle">Твой приз</h2>
+    <p class="muted">Покажи этот экран Эмиру, чтобы подтвердить результат.</p>
+    <button class="primary close-result">Готово</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
